@@ -5,10 +5,12 @@ async fn test_get_video_information() {
     let information = get_video_information("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
         .await
         .unwrap();
+    assert_eq!(information.id, "dQw4w9WgXcQ".to_string());
     assert_eq!(
         information.url,
         "https://www.youtube.com/watch?v=dQw4w9WgXcQ".to_string()
     );
+    assert_eq!(information.uploader, "RickAstleyVEVO".to_string());
     assert_eq!(
         information.title,
         "Rick Astley - Never Gonna Give You Up (Video)".to_string()
