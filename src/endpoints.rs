@@ -1,10 +1,12 @@
-use crate::error::YoutubeResult;
+use crate::error::Result;
 use crate::parsing::video_information::parse_video_information;
 use crate::types::VideoInformation;
 
 /// Returns information about a video
 /// ```
 /// use youtube_metadata::get_video_information;
+/// # #[tokio::test]
+/// # async fn doctest() {
 /// let information = get_video_information("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 ///      .await
 ///      .unwrap();
@@ -22,8 +24,9 @@ use crate::types::VideoInformation;
 ///      information.thumbnail,
 ///      Some("https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg".to_string())
 ///  );
+/// # }
 /// ```
-pub async fn get_video_information(url: &str) -> YoutubeResult<VideoInformation> {
+pub async fn get_video_information(url: &str) -> Result<VideoInformation> {
     let response = reqwest::get(url).await?;
     let response_text = response.text().await?;
 
