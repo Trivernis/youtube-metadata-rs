@@ -5,6 +5,7 @@ authors = ["trivernis <trivernis@protonmail.com>"]
 edition = "2018"
 description = "YouTube video metadata fetcher"
 readme = "README.md"
+repository = "https://github.com/Trivernis/youtube-metadata-rs"
 license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -12,8 +13,7 @@ license = "MIT"
 [dependencies]
 reqwest = "0.11.3"
 scraper = "0.12.0"
-thiserror = "1.0.24"
 lazy_static = "1.4.0"
 
 [dev-dependencies]
-tokio = {version = "1.5.0", features = ["macros", "rt-multi-thread"]}
+tokio = { version = "1.5.0", features = ["macros", "rt-multi-thread"] }
