@@ -1,9 +1,10 @@
-use crate::error::YoutubeResult;
-use crate::parsing::try_select_attribute;
-use crate::types::VideoInformation;
+use lazy_static::lazy_static;
 use scraper::{Html, Selector};
 
-lazy_static::lazy_static! {
+use super::try_select_attribute;
+use crate::{error::Result, types::VideoInformation};
+
+lazy_static! {
     static ref TITLE_SELECTOR: Selector = Selector::parse(r#"meta[property="og:title"]"#).unwrap();
     static ref THUMBNAIL_SELECTOR: Selector = Selector::parse(r#"meta[property="og:image"]"#).unwrap();
     static ref URL_SELECTOR: Selector = Selector::parse(r#"link[rel="canonical"]"#).unwrap();
@@ -12,7 +13,7 @@ lazy_static::lazy_static! {
 }
 
 /// Parses information about a video from the html
-pub fn parse_video_information(html: &str) -> YoutubeResult<VideoInformation> {
+pub fn parse_video_information(html: &str) -> Result<VideoInformation> {
     let document = Html::parse_document(html);
 
     let video_id = try_select_attribute(&document, &ID_SELECTOR, "content")?;
