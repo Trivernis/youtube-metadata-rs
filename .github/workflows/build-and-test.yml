@@ -33,10 +33,24 @@ jobs:
             ${{ runner.os }}-cargo-
 
       - name: Fast Fail Check
-        run: cargo check --verbose
+        uses: actions-rs/cargo@v1
+        with:
+          command: check
+          args: --verbose
+
+      - uses: actions-rs/clippy-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --all-features
 
       - name: Build
-        run: cargo build --verbose --all-features
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --verbose --all-features
 
       - name: Run tests
-        run: cargo test --verbose --all-features
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --verbose --all-features
