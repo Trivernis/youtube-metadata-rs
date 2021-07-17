@@ -1,7 +1,10 @@
 [package]
 name = "youtube-metadata"
 version = "0.2.0"
-authors = ["trivernis <trivernis@protonmail.com>"]
+authors = [
+	"trivernis <trivernis@protonmail.com>",
+	"Vilgot Fredenberg <vilgot@fredenberg.xyz>",
+]
 edition = "2018"
 description = "YouTube video metadata fetcher"
 readme = "README.md"
@@ -11,9 +14,17 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-reqwest = "0.11.3"
-scraper = "0.12.0"
 lazy_static = "1.4.0"
+reqwest = { default-features = false, version = "0.11.3" }
+regex = "1"
+serde = { features = ["derive"], optional = true, version = "1" }
+serde_json = "1"
+tracing = "0.1"
 
 [dev-dependencies]
-tokio = { version = "1.5.0", features = ["macros", "rt-multi-thread"] }
+tokio = { features = ["macros", "rt-multi-thread"], version = "1.5.0" }
+
+[features]
+default = ["native"]
+native = ["reqwest/default-tls"]
+rustls = ["reqwest/rustls-tls"]
